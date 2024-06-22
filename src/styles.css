@@ -1,0 +1,168 @@
+.input_form {
+    /* Flex container for input */
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 90%;
+    position: relative;
+    align-items: center;
+}
+
+.input_box {
+    /* Input box styling */
+    width: 100%;
+    border-radius: 50px;
+    padding: 20px 30px;
+    font-size: 20px;
+    border: none;
+    transition: 0.2s;
+    box-shadow: inset 0 0 5px black;
+}
+
+.input_submit {
+    /* Submit button styling */
+    width: 200px;
+    height: 50px;
+    margin: 12px;
+    border-radius: 30px;
+    right: 0px;
+    border: none;
+    font-size: 15px;
+    background-color: #4b4b4b;
+    color: white;
+    transition: 0.2s all;
+    box-shadow: 0 0 10px black;
+}
+
+.input_submit:hover {
+    /* Hover effect for submit button */
+    background-color: #388ae2;
+}
+
+.input_submit:active {
+    /* Active state for submit button */
+    transform: scale(0.8);
+    box-shadow: 0 0 5px black;
+}
+
+.container {
+    /* Container for items */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    align-items: flex-start;
+}
+
+.items {
+    /* Styling for individual items */
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.dragactive {
+    /* Styling for drag-active state */
+    background-color: rgb(0, 221, 236);
+}
+
+.dragcomplete {
+    /* Styling for drag-complete state */
+    background-color: rgb(255, 38, 0);
+}
+
+.remove {
+    /* Styling for remove action */
+    background-color: rgb(235, 103, 80);
+}
+
+.items_heading {
+    /* Heading style for items */
+    font-size: 25px;
+    color: white;
+}
+
+.item_single {
+    /* Styling for individual item */
+    display: flex;
+    padding: 10px;
+    transition: 0.2s;
+    border: rgb(153, 153, 153) solid;
+    border-width: 1px 0 1px 0;
+    justify-content: space-between;
+    align-items: center;
+}
+.item_single_fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.drag {
+    /* Styling for drag effect */
+    box-shadow: 0 0 10px black;
+}
+
+.item_single:hover {
+    /* Hover effect for individual item */
+    box-shadow: 0 0 5px black;
+    transform: scale(1.03);
+}
+
+.item_single--text {
+    /* Styling for item text */
+    flex: 1;
+    padding: 5px;
+    border: none;
+    font-size: 20px;
+}
+
+.item_single--text--strikethrough {
+    /* Styling for strikethrough text */
+    flex: 1;
+    padding: 5px;
+    border: none;
+    font-size: 20px;
+    text-decoration: line-through;
+}
+
+.item_single--text:focus {
+    /* Focus style for item text */
+    outline: none;
+}
+
+.icon {
+    /* Styling for icons */
+    margin-left: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+@media (min-width: 700px) {
+    /* Responsive styling for larger screens */
+    .container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .items {
+        width: 47.5%;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 1100px) {
+    /* Responsive styling for even larger screens */
+    .items {
+        width: 45%;
+    }
+
+    .input {
+        width: 95%;
+    }
+}
+
+
