@@ -11,13 +11,14 @@ interface VideoConstraints {
 }
 
 export const CustomWebcam: React.FC = () => {
-  const [isCaptureEnable, setCaptureEnable] = useState<boolean>(false);
-  const [videoConstraints, setVideoConstraints] = useState<VideoConstraints>({
+  const defaultVideoConfig = {
     width: 320,
     height: 240,
     facingMode: { exact: "environment" },
     aspectRatio: 4/3
-  });
+  }
+  const [isCaptureEnable, setCaptureEnable] = useState<boolean>(false);
+  const [videoConstraints, setVideoConstraints] = useState<VideoConstraints>(defaultVideoConfig);
   const webcamRef = useRef<Webcam>(null);
   const [url, setUrl] = useState<string | null>(null);
 
@@ -31,19 +32,20 @@ export const CustomWebcam: React.FC = () => {
 
   // Check for available cameras and set constraints
   useEffect(() => {
-    const getCameras = async (): Promise<void> => {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const videoDevices = devices.filter(device => device.kind === "videoinput");
-      const hasRearCamera = videoDevices.some(device => device.label.toLowerCase().includes("back"));
-      setVideoConstraints({
-        width: 360,
-        height: 360,
-        aspectRatio: 0.5,
-        facingMode: hasRearCamera ? { exact: "environment" } : "user",
-      });
-    };
+    // const getCameras = async (): Promise<void> => {
+    //   const devices = await navigator.mediaDevices.enumerateDevices();
+    //   const videoDevices = devices.filter(device => device.kind === "videoinput");
+    //   const hasRearCamera = videoDevices.some(device => device.label.toLowerCase().includes("back"));
+    //   setVideoConstraints({
+    //     width: 360,
+    //     height: 360,
+    //     aspectRatio: 0.5,
+    //     facingMode: hasRearCamera ? { exact: "environment" } : "user",
+    //   });
+    // };
 
-    getCameras();
+    // getCameras();
+    setVideoConstraints(defaultVideoConfig)
   }, []);
 
   return (
