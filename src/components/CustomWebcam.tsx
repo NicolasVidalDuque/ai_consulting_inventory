@@ -11,15 +11,15 @@ interface VideoConstraints {
 
 export const CustomWebcam: React.FC = () => {
   const resolutionConfigs = {
-    "320p": { width: 320, height: 240, aspectRatio: 4/3 },
-    "480p": { width: 640, height: 480, aspectRatio: 4/3 },
-    "720p": { width: 1280, height: 720, aspectRatio: 16/9 }
+    "320p": { width: 240, height: 240, aspectRatio: 1 },
+    "480p": { width: 480, height: 480, aspectRatio: 1 },
+    "720p": { width: 720, height: 720, aspectRatio: 1 }
   };
 
   const [isCaptureEnable, setCaptureEnable] = useState<boolean>(false);
-  const [selectedResolution, setSelectedResolution] = useState<string>("480p");
+  const [selectedResolution, setSelectedResolution] = useState<string>("720");
   const [videoConstraints, setVideoConstraints] = useState<VideoConstraints>({
-    ...resolutionConfigs["480p"],
+    ...resolutionConfigs["720p"],
     facingMode: { exact: "environment" }
   });
   const webcamRef = useRef<Webcam>(null);
@@ -37,7 +37,7 @@ export const CustomWebcam: React.FC = () => {
     setSelectedResolution(newResolution);
     setVideoConstraints({
       ...resolutionConfigs[newResolution as keyof typeof resolutionConfigs],
-      facingMode: { exact: "environment" }
+      facingMode: { exact: "user" }
     });
   };
 
@@ -45,7 +45,7 @@ export const CustomWebcam: React.FC = () => {
     setCaptureEnable(true);
     setVideoConstraints({
       ...resolutionConfigs[selectedResolution as keyof typeof resolutionConfigs],
-      facingMode: { exact: "environment" }
+      facingMode: { exact: "user" }
     });
   };
 
@@ -67,8 +67,8 @@ export const CustomWebcam: React.FC = () => {
           <div>
             <button onClick={() => setCaptureEnable(false)}>End</button>
           </div>
-          <div>
-            <Webcam
+          <div className="result_image_container">
+            <Webcam className="result_image"
               audio={false}
               width={videoConstraints.width}
               height={videoConstraints.height}
@@ -82,14 +82,14 @@ export const CustomWebcam: React.FC = () => {
       )}
       
       {url && (
-        <>
-          <div>
+        <div className="result_image_container">
+          <div className="button_container">
             <button onClick={() => setUrl(null)}>Delete</button>
           </div>
-          <div>
-            <img src={url} alt="Screenshot" />
+          <div className="result_image_container">
+            <img className="result_image" src={url} alt="Screenshot" />
           </div>
-        </>
+        </div>
       )}
     </>
   );
