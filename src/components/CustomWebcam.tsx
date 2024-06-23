@@ -15,7 +15,7 @@ export const CustomWebcam: React.FC = () => {
   const [videoConstraints, setVideoConstraints] = useState<VideoConstraints>({
     width: 320,
     height: 240,
-    facingMode: "user",
+    facingMode: { exact: "environment" },
     aspectRatio: 4/3
   });
   const webcamRef = useRef<Webcam>(null);
