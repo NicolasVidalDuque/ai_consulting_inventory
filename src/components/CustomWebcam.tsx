@@ -1,8 +1,7 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
 import "../styles.css";
 
-// Define type for video constraints
 interface VideoConstraints {
   width: number;
   height: number;
@@ -11,18 +10,21 @@ interface VideoConstraints {
 }
 
 export const CustomWebcam: React.FC = () => {
-  const defaultVideoConfig = {
-    width: 320,
-    height: 240,
-    facingMode: { exact: "environment" },
-    aspectRatio: 4/3
-  }
+  const resolutionConfigs = {
+    "320p": { width: 320, height: 240, aspectRatio: 4/3 },
+    "480p": { width: 640, height: 480, aspectRatio: 4/3 },
+    "720p": { width: 1280, height: 720, aspectRatio: 16/9 }
+  };
+
   const [isCaptureEnable, setCaptureEnable] = useState<boolean>(false);
-  const [videoConstraints, setVideoConstraints] = useState<VideoConstraints>(defaultVideoConfig);
+  const [selectedResolution, setSelectedResolution] = useState<string>("480p");
+  const [videoConstraints, setVideoConstraints] = useState<VideoConstraints>({
+    ...resolutionConfigs["480p"],
+    facingMode: { exact: "environment" }
+  });
   const webcamRef = useRef<Webcam>(null);
   const [url, setUrl] = useState<string | null>(null);
 
-  // Capture screenshot
   const capture = useCallback((): void => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
@@ -30,28 +32,34 @@ export const CustomWebcam: React.FC = () => {
     }
   }, [webcamRef]);
 
-  // Check for available cameras and set constraints
-  useEffect(() => {
-    // const getCameras = async (): Promise<void> => {
-    //   const devices = await navigator.mediaDevices.enumerateDevices();
-    //   const videoDevices = devices.filter(device => device.kind === "videoinput");
-    //   const hasRearCamera = videoDevices.some(device => device.label.toLowerCase().includes("back"));
-    //   setVideoConstraints({
-    //     width: 360,
-    //     height: 360,
-    //     aspectRatio: 0.5,
-    //     facingMode: hasRearCamera ? { exact: "environment" } : "user",
-    //   });
-    // };
+  const handleResolutionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newResolution = event.target.value;
+    setSelectedResolution(newResolution);
+    setVideoConstraints({
+      ...resolutionConfigs[newResolution as keyof typeof resolutionConfigs],
+      facingMode: { exact: "environment" }
+    });
+  };
 
-    // getCameras();
-    setVideoConstraints(defaultVideoConfig)
-  }, []);
+  const startCapture = () => {
+    setCaptureEnable(true);
+    setVideoConstraints({
+      ...resolutionConfigs[selectedResolution as keyof typeof resolutionConfigs],
+      facingMode: { exact: "environment" }
+    });
+  };
 
   return (
     <>
       {!isCaptureEnable && (
-        <button onClick={() => setCaptureEnable(true)}>Start</button>
+        <div>
+          <select value={selectedResolution} onChange={handleResolutionChange}>
+            <option value="320p">320p</option>
+            <option value="480p">480p</option>
+            <option value="720p">720p</option>
+          </select>
+          <button onClick={startCapture}>Start</button>
+        </div>
       )}
 
       {isCaptureEnable && (
@@ -62,8 +70,8 @@ export const CustomWebcam: React.FC = () => {
           <div>
             <Webcam
               audio={false}
-              width={540}
-              height={360}
+              width={videoConstraints.width}
+              height={videoConstraints.height}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
