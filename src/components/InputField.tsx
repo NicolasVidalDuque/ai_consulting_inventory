@@ -33,7 +33,7 @@ const InputField: React.FC<Props> = ({ item, setItem, handleAdd, handleWorkerSel
 
 
         try {
-            const apiUrl = process.env.REACT_APP_API_URL + '/process-image';
+            const apiUrl = 'https://ai-consulting-backend.onrender.com/process-image';
             const apiResponse = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
