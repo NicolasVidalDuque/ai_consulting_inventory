@@ -2,6 +2,10 @@ import React, { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
 import "../styles.css";
 
+interface CustomWebcamProps {
+  make_request: (url: string) => void;
+}
+
 interface VideoConstraints {
   width: number;
   height: number;
@@ -9,7 +13,7 @@ interface VideoConstraints {
   aspectRatio: number;
 }
 
-export const CustomWebcam: React.FC = () => {
+export const CustomWebcam: React.FC<CustomWebcamProps> = ({make_request}: CustomWebcamProps) => {
   const resolutionConfigs = {
     "320p": { width: 240, height: 240, aspectRatio: 1 },
     "480p": { width: 480, height: 480, aspectRatio: 1 },
@@ -88,6 +92,7 @@ export const CustomWebcam: React.FC = () => {
           </div>
           <div className="result_image_container">
             <img className="result_image" src={url} alt="Screenshot" />
+            <button className="use_button" onClick={() => make_request(url)}>USE IMAGE</button>
           </div>
         </div>
       )}

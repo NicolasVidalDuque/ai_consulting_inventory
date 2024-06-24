@@ -3,7 +3,6 @@ import './App.css';
 import InputField from './components/InputField';
 import { Item, Worker } from './models/model';
 import InputList from './components/InputList';
-import { CustomWebcam } from './components/CustomWebcam';
 import { v4 as uuid } from 'uuid'
 
 
@@ -78,7 +77,6 @@ const App: React.FC = () => {
   return (
       <div className='App'>
         <span className='heading'>Inventory Control</span>
-        <CustomWebcam />
         <InputField item={item} setItem={setItem} handleAdd={handleAdd} handleWorkerSelect={handleWorkerSelect} />
         <InputList items={items} setItems={setItems}/>
       </div>
