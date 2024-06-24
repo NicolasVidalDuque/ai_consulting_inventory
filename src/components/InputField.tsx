@@ -33,7 +33,8 @@ const InputField: React.FC<Props> = ({ item, setItem, handleAdd, handleWorkerSel
 
 
         try {
-            const apiResponse = await fetch('http://localhost:3000/process-image', {
+            const apiUrl = process.env.REACT_APP_API_URL + '/process-image';
+            const apiResponse = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
