@@ -41,7 +41,7 @@ export const CustomWebcam: React.FC<CustomWebcamProps> = ({make_request}: Custom
     setSelectedResolution(newResolution);
     setVideoConstraints({
       ...resolutionConfigs[newResolution as keyof typeof resolutionConfigs],
-      facingMode: { exact: "user" }
+      facingMode: { exact: "environment" }
     });
   };
 
@@ -49,7 +49,7 @@ export const CustomWebcam: React.FC<CustomWebcamProps> = ({make_request}: Custom
     setCaptureEnable(true);
     setVideoConstraints({
       ...resolutionConfigs[selectedResolution as keyof typeof resolutionConfigs],
-      facingMode: { exact: "user" }
+      facingMode: { exact: "environment" }
     });
   };
 
