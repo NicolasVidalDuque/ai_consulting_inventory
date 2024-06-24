@@ -60,7 +60,7 @@ const InputField: React.FC<Props> = ({ item, setItem, handleAdd, handleWorkerSel
             });
 
         } catch (error) {
-            console.error('Error:', error.message);
+            console.error('Error:', (error as Error).message);
             // Handle error state or display error message
         }
     };
